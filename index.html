@@ -443,14 +443,14 @@ const data =
 const search = (obj) => {
     document.getElementById("result").innerText = ""
     
-    const casts = [];
+    const casts = []
     
     if(obj.id == "elements") {
         document.getElementById("plays").value = ""
         for(items of data) 
             for(item of items.elements)
                 if(obj.value==item)
-                    casts.push(items.cast)
+                    casts.push(`<a href="${items.url}" target="_blank">${items.cast}</a><br>`)
     }
     
     if(obj.id == "plays") {
@@ -458,11 +458,11 @@ const search = (obj) => {
             for(items of data) 
                 for(item of items.plays)
                     if(obj.value==item)
-                        casts.push(items.cast)
+                        casts.push(`<a href="${items.url}" target="_blank">${items.cast}</a><br>`)
     }
 
     for(cast of casts)
-        document.getElementById("result").innerText += cast + "\r\n"
+        document.getElementById("result").innerHTML += cast
 }
     </script>
 </body>
