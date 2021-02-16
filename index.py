@@ -6,13 +6,10 @@ url = "https://x-oasis.com/casts"
 html = requests.get(url)
 data = BeautifulSoup(html.text, "html.parser")
 
-# キャスト一覧を取得
 casts = [cast.text for cast in data.select(".cast-title > span > a")]
 
-# キャスト一覧のURLを取得
 casts_link = ["https://x-oasis.com" + cast['href'] for cast in data.select(".cast-title > span > a")]
 
-# キャストの属性を取得
 casts_elements_array = []
 casts_elements = data.select(".cast-elements > div > ul")
 for elements in casts_elements:
@@ -22,7 +19,6 @@ for elements in casts_elements:
             array.append(element.text)
     casts_elements_array.append(array)
 
-# キャストの対応可能範囲を取得
 casts_play_titles_array = []
 for link in casts_link:
     cast_html = requests.get(link)
@@ -34,7 +30,6 @@ for link in casts_link:
         array.append(cast_play_title.text.replace('（', '(').replace('）', ')'))
     casts_play_titles_array.append(array)
 
-# キャストごとに情報をjson化させる
 all_casts_datas = []
 for index, cast in enumerate(casts):
     all_casts_datas.append({"cast" : casts[index], "url" : casts_link[index], "elements" : casts_elements_array[index], "plays" : casts_play_titles_array[index]})
